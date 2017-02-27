@@ -1,0 +1,43 @@
+{
+  "name": "koa-error-stack",
+  "version": "0.0.1",
+  "description": "Error stack response middleware (html)",
+  "main": "index.js",
+  "files": [
+    "index.js",
+    "src"
+  ],
+  "directories": {
+    "test": "test"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.23.0",
+    "babel-plugin-module-alias": "^1.6.0",
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-stage-3": "^6.22.0",
+    "babel-register": "^6.23.0",
+    "koa": "^2.0.1"
+  },
+  "scripts": {
+    "build": "babel src/index.js --out-file index.js --presets=es2015,stage-3",
+    "dev": "babel --watch src/index.js --out-file index.js --presets=es2015,stage-3",
+    "test": "nodemon test/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Debbie-Lab/koa-error-stack.git"
+  },
+  "author": "solome",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Debbie-Lab/koa-error-stack/issues"
+  },
+  "homepage": "https://github.com/Debbie-Lab/koa-error-stack#readme",
+  "dependencies": {
+    "error-stack-parser": "^2.0.0"
+  },
+  "keywords": [
+    "koa-error-stack"
+  ]
+}
