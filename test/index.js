@@ -1,8 +1,10 @@
+const path = require('path')
+
 require("babel-register")({
   presets: ['es2015', 'stage-3'],
   plugins: [
     ['module-alias',[
-      { src: './src/index', 'expose': 'koa-error-stack' },
+      { src: path.resolve(__dirname, '../src/index'), 'expose': 'koa-error-stack' },
     ]],
   ],
 })

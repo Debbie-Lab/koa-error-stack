@@ -1,5 +1,9 @@
 import ErrorStackParser from 'error-stack-parser'
 
+const meta = `
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+`
+
 const style = `
 <style>
   body { font-family: 'Andale Mono', monospace, sans-serif; font-size: 15px; line-height: 1.2em; background: aliceblue; }
@@ -12,7 +16,7 @@ const style = `
 </style>
 `
 
-const errorStackTpl = (error) => {
+export const errorStackTpl = function (error) {
   const errorStacks = ErrorStackParser.parse(error)
     .filter(stack => stack.fileName.indexOf('node_modules/babel') === -1)
 
@@ -28,6 +32,10 @@ const errorStackTpl = (error) => {
      `</ul>
     </div>`
   )
+}
+
+export const errorStack2Html = function(error) {
+  return `<!DOCTYPE html><html><head>${meta}${style}</head><body>${errorStackTpl(error)}</body>`
 }
 
 export default function(opts) {
@@ -48,7 +56,7 @@ export default function(opts) {
         logger.error(error)
         if (debug) {
           ctx.type = 'text/html'
-          ctx.body = `<!DOCTYPE html><html><head>${style}</head><body>${errorStackTpl(error)}</body>`
+          ctx.body = errorStack2Html(error)
         } else {
           ctx.body = `${ctx.status}, Error Happens`
         }
