@@ -79,15 +79,15 @@ var meta = '\n<meta name="viewport" content="width=device-width,initial-scale=1,
 var style = '\n<style>\n  body { font-family: \'Andale Mono\', monospace, sans-serif; font-size: 15px; line-height: 1.2em; background: aliceblue; }\n  ul { list-style: none; margin: 5px; }\n  .name { color: green; }\n  .func { color: red; }\n  .file { color: lightseagreen; }\n  .line { color: blue; }\n  .clum { color: brown; }\n</style>\n';
 
 var errorStackTpl = exports.errorStackTpl = function errorStackTpl(error) {
-  var errorStacks = _errorStackParser2.default.parse(error).filter(function (stack) {
+  var errorStacks = _errorStackParser2.default.parse(error instanceof Error ? error : new Error(error)).filter(function (stack) {
     return stack.fileName.indexOf('node_modules/babel') === -1;
   });
 
-  return '\n    <div>\n      <div><span class="name">' + error.name + '</span>\uFF1A' + error.message + '</div>\n      <ul>' + errorStacks.map(function (stack) {
+  return '\n    <div> \n      <div ><span class="name">' + error.name + '</span>\uFF1A' + error.message + '</div>\n      <ul>' + errorStacks.map(function (stack) {
     return '\n        <li> at\n          <span class="func">' + stack.functionName + '</span>\n          (<span class="file">' + stack.fileName + '</span>:<span class="line">' + stack.lineNumber + '</span>:<span class="clum">' + stack.columnNumber + '</span>)\n      ';
   }) + '</ul>\n    </div>';
 };
 
 var errorStack2Html = exports.errorStack2Html = function errorStack2Html(error) {
-  return '<!DOCTYPE html><html><head>' + meta + style + '</head><body>' + errorStackTpl(error) + '</body>';
+  return '<!DOCTYPE html><html><head>' + meta + style + '</head><body>' + errorStackTpl(error) + '</body></html>';
 };

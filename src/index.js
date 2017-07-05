@@ -17,12 +17,12 @@ const style = `
 `
 
 export const errorStackTpl = function (error) {
-  const errorStacks = ErrorStackParser.parse(error)
+  const errorStacks = ErrorStackParser.parse((error instanceof Error) ? error : new Error(error))
     .filter(stack => stack.fileName.indexOf('node_modules/babel') === -1)
 
   return (`
-    <div>
-      <div><span class="name">${error.name}</span>：${error.message}</div>
+    <div> 
+      <div ><span class="name">${error.name}</span>：${error.message}</div>
       <ul>` +
       errorStacks.map(stack => `
         <li> at
@@ -35,7 +35,7 @@ export const errorStackTpl = function (error) {
 }
 
 export const errorStack2Html = function(error) {
-  return `<!DOCTYPE html><html><head>${meta}${style}</head><body>${errorStackTpl(error)}</body>`
+  return `<!DOCTYPE html><html><head>${meta}${style}</head><body>${errorStackTpl(error)}</body></html>`
 }
 
 export default function(opts) {
