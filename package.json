@@ -1,6 +1,6 @@
 {
   "name": "koa-error-stack",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Error stack response middleware (html)",
   "main": "index.js",
   "files": [

@@ -9,7 +9,7 @@ exports.default = function (opts) {
   var debug = opts.debug;
 
   return function () {
-    var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee(ctx, next) {
+    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(ctx, next) {
       var error, logger;
       return regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
@@ -31,26 +31,33 @@ exports.default = function (opts) {
               ctx.error = _context.t0;
 
             case 9:
-
-              if (ctx.error) {
-                error = ctx.error;
-                logger = ctx.logger || console;
-
-                if (error instanceof Error) {
-                  logger.error(error);
-                  if (debug) {
-                    ctx.type = 'text/html';
-                    ctx.body = errorStack2Html(error);
-                  } else {
-                    ctx.body = ctx.status + ', Error Happens';
-                  }
-                } else {
-                  logger.error(error.toString(), { type: 'error' });
-                  this.body = debug ? (error || 'error') + '' : ctx.status + ', Error Happens';
-                }
+              if (!ctx.error) {
+                _context.next = 20;
+                break;
               }
 
-            case 10:
+              error = ctx.error;
+              logger = ctx.logger || console;
+
+              if (!(error instanceof Error)) {
+                _context.next = 18;
+                break;
+              }
+
+              logger.error(error);
+              if (debug) {
+                ctx.type = 'text/html';
+                ctx.body = errorStack2Html(error);
+              } else {
+                ctx.body = ctx.status + ', Error Happens';
+              }
+              throw error;
+
+            case 18:
+              logger.error(error.toString(), { type: 'error' });
+              this.body = debug ? (error || 'error') + '' : ctx.status + ', Error Happens';
+
+            case 20:
             case 'end':
               return _context.stop();
           }

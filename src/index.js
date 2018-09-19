@@ -60,6 +60,7 @@ export default function(opts) {
         } else {
           ctx.body = `${ctx.status}, Error Happens`
         }
+        throw error // 重新抛出该异常
       } else {
         logger.error(error.toString(), {type: 'error'})
         this.body = debug ? (error || 'error') + '' : `${ctx.status}, Error Happens`
